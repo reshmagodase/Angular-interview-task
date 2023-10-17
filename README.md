@@ -23,3 +23,8 @@ This is a task management application built using Angular.
     Typescript
     angular material 
     Bootstrap
+
+5. Use Lazy Loading 
+6. filter
+7. Pagination
+
