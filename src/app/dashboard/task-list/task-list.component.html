@@ -1,0 +1,196 @@
+<div class="maindiv">
+    <div class="container">
+        <div class="row pt-3">
+            <div class="col-md-4 col-xl-3">
+                <div class="card bg-c-blue order-card">
+                    <div class="card-block">
+                        <h5 class="m-b-20">Total Task</h5>
+                        <h2 class="text-right"><i class="px-2 fa fa-cart-plus f-left"></i><span>{{totalTask}}</span></h2>
+                        <p class="m-b-0">Total Task<span class="f-right">{{totalTask}}</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-xl-3">
+                <div class="card bg-c-green order-card">
+                    <div class="card-block">
+                        <h5 class="m-b-20">Completed</h5>
+                        <h2 class="text-right"><i class="px-2 fa fa-cart-plus f-left"></i><span>{{totalCompletedTasks}}</span></h2>
+                        <p class="m-b-0">Completed Task<span class="f-right">{{totalCompletedTasks}}</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-xl-3">
+                <div class="card bg-c-yellow order-card">
+                    <div class="card-block">
+                        <h5 class="m-b-20">In Progress</h5>
+                        <h2 class="text-right"><i class="px-2 fa fa-tasks f-left"></i><span>{{totalProgrssTasks}}</span></h2>
+                        <p class="m-b-0">In Progress Task<span class="f-right">{{totalProgrssTasks}}</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-xl-3">
+                <div class="card bg-c-pink order-card">
+                    <div class="card-block">
+                        <h5 class="m-b-20">Pending</h5>
+                        <h2 class="text-right"><i class="px-2 fa fa-tasks f-left"></i><span>{{pendingTasks}}</span></h2>
+                        <p class="m-b-0">Pending Task<span class="f-right">{{pendingTasks}}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+        <div class="row">
+            <div class="textlist col-md-10">
+                TASK LIST
+            </div>
+            <div class="col-md-2"style="margin-bottom: 8px;">    
+                    <input class="form-control" type="search" placeholder="Search" [(ngModel)]="searchText"
+                (ngModelChange)="search()">
+            </div>
+        </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Due Date</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of taskarray | paginate: { itemsPerPage: 5, currentPage: page }">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.dueDate }}</td>
+                    <td>{{ item.priority }}</td>
+                    <td>{{ item.status }}</td>
+                    <td>
+                        <span (click)="setTaskData(item)" class="icon"><i class="bi bi-pen text-warning" data-bs-toggle="modal"
+                            data-bs-target="#updateModal"></i></span>
+                        <span (click)="viewDetails(item)" class="icon" data-bs-toggle="modal" data-bs-target="#viewModal"><i
+                                class="bi bi-eye text-success"></i></span>
+                        <span (click)="deleteRow(item.id)"><i class="bi bi-trash text-danger"></i></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="has-text-centered">
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        </div>
+    </div>
+<!-- ******************************************************************************************************* -->
+ <!-- Update Modal -->
+ <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">UPDATE TASK</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container py-4 px-5" style="background-color: rgb(236, 234, 234); border-radius: 10px;">
+                    <form [formGroup]="taskform">
+                        <div class="mb-3">
+                            <label for="title">Title:</label>
+                            <input class="form-control" type="text"  formControlName="title" required
+                                [ngClass]="{ 'is-invalid': submitted && f.title.errors }">
+                            <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+                                <div *ngIf="f.title.errors.required">Mandatoty!</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Due Date:</label>
+                            <input class="form-control" type="date" formControlName="dueDate"
+                                [ngClass]="{ 'is-invalid': submitted && f.dueDate.errors }">
+                            <div *ngIf="submitted && f.dueDate.errors" class="invalid-feedback">
+                                <div *ngIf="f.dueDate.errors.required">Mandatoty!</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description">Description:</label>
+                            <textarea class="form-control" formControlName="description" 
+                            [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>     
+                            <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                                <div *ngIf="f.description.errors.required">Mandatoty!</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Priority:</label>
+                            <select class="form-control"  formControlName="priority">
+                            <option value="" disabled selected>--Please Select--</option>
+                              <option value="Low">Low</option>
+                              <option value="Medium">Medium</option>
+                              <option value="High">High</option>
+                            </select>
+                            <div *ngIf="submitted && f.priority.errors" class="invalid-feedback">
+                                <div *ngIf="f.priority.errors.required">Mandatoty!</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Status:</label><br>
+                            <label><input type="radio" value="Completed" formControlName="status"> Completed</label><br>
+                            <label><input type="radio" value="In Progress" formControlName="status"> In Progress</label><br>
+                            <label><input type="radio" value="Pending" formControlName="status"> Pending</label>
+                            <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+                                <div *ngIf="f.status.errors.required">Mandatoty!</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Attachment</label>
+                            <input type="file" class="form-control" formControlName="attachment" (change)="onselectfile($event)"
+                                [ngClass]="{ 'is-invalid': submitted && f.attachment.errors }">
+                            <div *ngIf="submitted && f.attachment.errors" class="invalid-feedback">
+                                <div *ngIf="f.attachment.errors.required">Mandatoty!</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="updateTaskData()">Update</button>
+                <button type="button" id="cancle1" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ******************************************************************************************************* -->
+<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel">VIEW DETAILS</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container py-4 px-5" style="background-color: rgb(236, 234, 234); border-radius: 10px;">
+            <div class="profile-container">
+              <div class="profile-header">
+                <div class="profile-info">
+                  <h1 class="profile-name" style="font-size: 25px;"><i class="fas fa-user" style="padding-right: 10px; font-size: 2rem;"></i>Alen roy</h1>
+                </div>
+              </div>
+              <div class="profile-details">
+                <h2>About :</h2>
+                <p><span style="padding-right: 5px;">Id :</span>{{id}}</p>
+                <p><span style="padding-right: 5px;">Task Name :</span>{{title}}</p>
+                <p><span style="padding-right: 5px;">Description:</span>{{description}}</p>
+                <h2>Status</h2>
+                <p>status :{{status}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="cancle1" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

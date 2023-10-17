@@ -1,0 +1,67 @@
+<div class="content container-fluid">
+    <div class="container">
+        <div class="col">
+            <h4>ADD TASK :</h4>
+        </div>
+    </div>
+    <div class="maindiv mb-4 mt-4 py-4 px-5" style="background-color: rgb(236, 234, 234); border-radius: 10px;">
+        <form [formGroup]="taskform">
+            <div class="mb-3">
+                <label for="title">Title:</label>
+                <input class="form-control" type="text" formControlName="title" required
+                    [ngClass]="{ 'is-invalid': submitted && f.title.errors }">
+                <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+                    <div *ngIf="f.title.errors.required">Mandatoty!</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label>Due Date:</label>
+                <input class="form-control" type="date" formControlName="dueDate"
+                    [ngClass]="{ 'is-invalid': submitted && f.dueDate.errors }">
+                <div *ngIf="submitted && f.dueDate.errors" class="invalid-feedback">
+                    <div *ngIf="f.dueDate.errors.required">Mandatoty!</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="description">Description:</label>
+                <textarea class="form-control" formControlName="description"
+                    [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+                <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                    <div *ngIf="f.description.errors.required">Mandatoty!</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label>Priority:</label>
+                <select class="form-control" formControlName="priority"
+                    [ngClass]="{ 'is-invalid': submitted && f.priority.errors }">
+                    <option value="" disabled selected>--Please Select--</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+                <div *ngIf="submitted && f.priority.errors" class="invalid-feedback">
+                    <div *ngIf="f.priority.errors.required">Mandatoty!</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label>Status:</label><br>
+                <label><input type="radio" value="Completed" formControlName="status"
+                        [ngClass]="{ 'is-invalid': submitted && f.status.errors?.required}"> Completed</label><br>
+                <label><input type="radio" value="In Progress" formControlName="status"
+                        [ngClass]="{ 'is-invalid': submitted && f.status.errors?.required}"> In Progress</label>
+                <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+                    <div *ngIf="f.status.errors.required">Mandatoty!</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Attachment</label>
+                <input type="file" class="form-control" formControlName="attachment" (change)="onselectfile($event)"
+                    [ngClass]="{ 'is-invalid': submitted && f.attachment.errors }">
+                <div *ngIf="submitted && f.attachment.errors" class="invalid-feedback">
+                    <div *ngIf="f.attachment.errors.required">Mandatoty!</div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="addTaskData()">Submit</button>
+        </form>
+    </div><br><br><br>
+</div>

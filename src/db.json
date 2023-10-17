@@ -1,0 +1,47 @@
+{
+  "vendorSubmit": [
+    {
+      "title": "angular Task1",
+      "description": "descriptionn",
+      "dueDate": "2023-10-05",
+      "priority": "Medium",
+      "status": "Pending",
+      "id": 1
+    },
+    {
+      "title": "Angular Task2",
+      "description": "angular task management ",
+      "dueDate": "2023-10-03",
+      "priority": "High",
+      "status": "Completed",
+      "attachment": "C:\\fakepath\\hotel.jpg",
+      "id": 2
+    },
+    {
+      "title": "vendor management ",
+      "description": "vendor management  app to manage the vender details ",
+      "dueDate": "2023-10-13",
+      "priority": "Low",
+      "status": "Completed",
+      "id": 3
+    },
+    {
+      "title": "task4",
+      "description": "task4",
+      "dueDate": "2023-10-01",
+      "priority": "Medium",
+      "status": "Completed",
+      "attachment": "C:\\fakepath\\gallery img3.jpg",
+      "id": 4
+    },
+    {
+      "title": "utility aid task",
+      "description": "utility aid task",
+      "dueDate": "2023-10-12",
+      "priority": "Medium",
+      "status": "In Progress",
+      "attachment": "C:\\fakepath\\restaurant.jpg",
+      "id": 5
+    }
+  ]
+}
