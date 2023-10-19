@@ -45,13 +45,11 @@
             </div>
             <div class="mb-3">
                 <label>Status:</label><br>
-                <label><input type="radio" value="Completed" formControlName="status"
-                        [ngClass]="{ 'is-invalid': submitted && f.status.errors?.required}"> Completed</label><br>
-                <label><input type="radio" value="In Progress" formControlName="status"
-                        [ngClass]="{ 'is-invalid': submitted && f.status.errors?.required}"> In Progress</label>
-                <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
-                    <div *ngIf="f.status.errors.required">Mandatoty!</div>
-                </div>
+                <label><input type="radio" value="Completed" formControlName="status"> Completed</label><br>
+                <label><input type="radio" value="In Progress" formControlName="status"> In Progress</label> 
+                <div *ngIf="submitted && f.priority.errors && taskform.get('status').hasError('invalidStatus')" class="error-message">
+                    <div *ngIf="f.priority.errors.required">Mandatoty!</div>
+                </div>        
             </div>
             <div class="mb-3">
                 <label class="form-label">Attachment</label>

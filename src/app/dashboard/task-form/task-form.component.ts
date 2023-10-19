@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TaskserviceService } from 'src/app/taskservice.service';
 import Swal from 'sweetalert2';
-
+import { AbstractControl, ValidatorFn } from '@angular/forms';
 @Component({
   selector: 'app-task-form',
   templateUrl: './task-form.component.html',
@@ -21,7 +21,7 @@ export class TaskFormComponent {
       description: ['', [Validators.required]],
       dueDate: ['',[Validators.required]],
       priority: ['',[Validators.required]],
-      status: ['',[Validators.required]],
+      status: ['', this.statusValidator()],
       attachment: ['',[Validators.required]],
     })
   }
@@ -49,5 +49,15 @@ export class TaskFormComponent {
     } else {
       return
     }
+  }
+
+  statusValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const value = control.value;
+      if (value !== 'Completed' && value !== 'In Progress') {
+        return { invalidStatus: true };
+      }
+      return null;
+    };
   }
 }

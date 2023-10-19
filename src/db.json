@@ -1,5 +1,5 @@
 {
-  "vendorSubmit": [
+  "TaskDetails": [
     {
       "title": "angular Task1",
       "description": "descriptionn",
@@ -38,10 +38,19 @@
       "title": "utility aid task",
       "description": "utility aid task",
       "dueDate": "2023-10-12",
-      "priority": "Medium",
-      "status": "In Progress",
-      "attachment": "C:\\fakepath\\restaurant.jpg",
+      "priority": "Low",
+      "status": "Pending",
+      "attachment": "",
       "id": 5
+    },
+    {
+      "title": "vendor task",
+      "description": "description abou task",
+      "dueDate": "2023-10-01",
+      "priority": "High",
+      "status": "Completed",
+      "attachment": "C:\\fakepath\\hotel.jpg",
+      "id": 6
     }
   ]
 }
